@@ -6,6 +6,7 @@ import br.com.pegasus.forum.model.UserDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,8 @@ public class UsuarioController implements UsersApi, UserApi{
 
     @Override
     public ResponseEntity<List<UserDto>> listarUsuarios(String filter) {
-        return null;
+
+        return ResponseEntity.ok(new ArrayList<>());
     }
 
 
