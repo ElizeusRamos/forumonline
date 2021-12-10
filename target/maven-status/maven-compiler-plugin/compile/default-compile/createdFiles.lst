@@ -1,0 +1,7 @@
+br\com\pegasus\forum\model\UserCadastroForm.class
+br\com\pegasus\forum\ForumOnlineApplication.class
+br\com\pegasus\forum\model\UserDto.class
+br\com\pegasus\forum\controller\UsuarioController.class
+br\com\pegasus\forum\model\UserDetalhesDto.class
+br\com\pegasus\forum\controller\UsersApi.class
+br\com\pegasus\forum\controller\UserApi.class
