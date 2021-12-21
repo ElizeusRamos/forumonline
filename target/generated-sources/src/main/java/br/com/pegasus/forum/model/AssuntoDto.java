@@ -10,26 +10,23 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * UserDto
+ * AssuntoDto
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-12-21T15:40:09.821623500-03:00[America/Sao_Paulo]")
 
 
-public class UserDto   {
+public class AssuntoDto   {
   @JsonProperty("id")
   private Long id = null;
 
-  @JsonProperty("nome")
-  private String nome = null;
-
-  @JsonProperty("email")
-  private String email = null;
+  @JsonProperty("descricao")
+  private String descricao = null;
 
   @JsonProperty("dataCadastro")
   private OffsetDateTime dataCadastro = null;
 
-  public UserDto id(Long id) {
+  public AssuntoDto id(Long id) {
     this.id = id;
     return this;
   }
@@ -49,46 +46,27 @@ public class UserDto   {
     this.id = id;
   }
 
-  public UserDto nome(String nome) {
-    this.nome = nome;
+  public AssuntoDto descricao(String descricao) {
+    this.descricao = descricao;
     return this;
   }
 
   /**
-   * Get nome
-   * @return nome
+   * Get descricao
+   * @return descricao
    **/
   @Schema(required = true, description = "")
       @NotNull
 
-    public String getNome() {
-    return nome;
+    public String getDescricao() {
+    return descricao;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setDescricao(String descricao) {
+    this.descricao = descricao;
   }
 
-  public UserDto email(String email) {
-    this.email = email;
-    return this;
-  }
-
-  /**
-   * Get email
-   * @return email
-   **/
-  @Schema(description = "")
-  
-    public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public UserDto dataCadastro(OffsetDateTime dataCadastro) {
+  public AssuntoDto dataCadastro(OffsetDateTime dataCadastro) {
     this.dataCadastro = dataCadastro;
     return this;
   }
@@ -117,26 +95,24 @@ public class UserDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserDto userDto = (UserDto) o;
-    return Objects.equals(this.id, userDto.id) &&
-        Objects.equals(this.nome, userDto.nome) &&
-        Objects.equals(this.email, userDto.email) &&
-        Objects.equals(this.dataCadastro, userDto.dataCadastro);
+    AssuntoDto assuntoDto = (AssuntoDto) o;
+    return Objects.equals(this.id, assuntoDto.id) &&
+        Objects.equals(this.descricao, assuntoDto.descricao) &&
+        Objects.equals(this.dataCadastro, assuntoDto.dataCadastro);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, nome, email, dataCadastro);
+    return Objects.hash(id, descricao, dataCadastro);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserDto {\n");
+    sb.append("class AssuntoDto {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    nome: ").append(toIndentedString(nome)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    descricao: ").append(toIndentedString(descricao)).append("\n");
     sb.append("    dataCadastro: ").append(toIndentedString(dataCadastro)).append("\n");
     sb.append("}");
     return sb.toString();
