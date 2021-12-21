@@ -9,55 +9,57 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * UserCadastroForm
+ * VotosDto
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-12-21T15:40:09.821623500-03:00[America/Sao_Paulo]")
 
 
-public class UserCadastroForm   {
-  @JsonProperty("email")
-  private String email = null;
+public class VotosDto   {
+  @JsonProperty("positivos")
+  private Integer positivos = null;
 
-  @JsonProperty("senha")
-  private String senha = null;
+  @JsonProperty("negativos")
+  private Integer negativos = null;
 
-  public UserCadastroForm email(String email) {
-    this.email = email;
+  public VotosDto positivos(Integer positivos) {
+    this.positivos = positivos;
     return this;
   }
 
   /**
-   * Get email
-   * @return email
+   * Get positivos
+   * minimum: 0
+   * @return positivos
    **/
   @Schema(description = "")
   
-    public String getEmail() {
-    return email;
+  @Min(0)  public Integer getPositivos() {
+    return positivos;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setPositivos(Integer positivos) {
+    this.positivos = positivos;
   }
 
-  public UserCadastroForm senha(String senha) {
-    this.senha = senha;
+  public VotosDto negativos(Integer negativos) {
+    this.negativos = negativos;
     return this;
   }
 
   /**
-   * Get senha
-   * @return senha
+   * Get negativos
+   * minimum: 0
+   * @return negativos
    **/
   @Schema(description = "")
   
-  @Size(min=8,max=50)   public String getSenha() {
-    return senha;
+  @Min(0)  public Integer getNegativos() {
+    return negativos;
   }
 
-  public void setSenha(String senha) {
-    this.senha = senha;
+  public void setNegativos(Integer negativos) {
+    this.negativos = negativos;
   }
 
 
@@ -69,23 +71,23 @@ public class UserCadastroForm   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserCadastroForm userCadastroForm = (UserCadastroForm) o;
-    return Objects.equals(this.email, userCadastroForm.email) &&
-        Objects.equals(this.senha, userCadastroForm.senha);
+    VotosDto votosDto = (VotosDto) o;
+    return Objects.equals(this.positivos, votosDto.positivos) &&
+        Objects.equals(this.negativos, votosDto.negativos);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, senha);
+    return Objects.hash(positivos, negativos);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserCadastroForm {\n");
+    sb.append("class VotosDto {\n");
     
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    senha: ").append(toIndentedString(senha)).append("\n");
+    sb.append("    positivos: ").append(toIndentedString(positivos)).append("\n");
+    sb.append("    negativos: ").append(toIndentedString(negativos)).append("\n");
     sb.append("}");
     return sb.toString();
   }

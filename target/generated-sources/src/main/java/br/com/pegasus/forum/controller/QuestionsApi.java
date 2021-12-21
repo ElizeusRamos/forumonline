@@ -5,9 +5,9 @@
  */
 package br.com.pegasus.forum.controller;
 
-import br.com.pegasus.forum.model.UserCadastroForm;
-import br.com.pegasus.forum.model.UserDetalhesDto;
-import br.com.pegasus.forum.model.UserDto;
+import br.com.pegasus.forum.model.PerguntaCadastroForm;
+import br.com.pegasus.forum.model.PerguntaDetalheDto;
+import br.com.pegasus.forum.model.PerguntaDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -36,33 +36,33 @@ import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2021-12-21T15:40:09.821623500-03:00[America/Sao_Paulo]")
 @Validated
-public interface UsersApi {
+public interface QuestionsApi {
 
-    @Operation(summary = "Consulta de usuários por ID.", description = "Retorna um usuários.", tags={ "Usuario" })
+    @Operation(summary = "Retorna a pergunta do forum.", description = "Retorna a pergunta.", tags={ "Perguntas" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "sucesso consulta", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetalhesDto.class))) })
-    @RequestMapping(value = "/users/{id}",
+        @ApiResponse(responseCode = "200", description = "sucesso listagem", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerguntaDetalheDto.class)))) })
+    @RequestMapping(value = "/questions/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<UserDetalhesDto> buscarUsuario(@Parameter(in = ParameterIn.PATH, description = "ID usuário", required=true, schema=@Schema()) @PathVariable("id") Long id);
+    ResponseEntity<List<PerguntaDetalheDto>> buscarPergunta(@Size(max=50) @Parameter(in = ParameterIn.PATH, description = "ID da pergunta", required=true, schema=@Schema()) @PathVariable("id") String id);
 
 
-    @Operation(summary = "Retorna a lista de usuários.", description = "Retorna a lista de usuários.", tags={ "Usuario" })
+    @Operation(summary = "Cadastra nova pergunta", description = "Cadastra nova pergunta", tags={ "Perguntas" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "sucesso cadastro") })
-    @RequestMapping(value = "/users",
+    @RequestMapping(value = "/questions",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> inserirUsuario(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody UserCadastroForm body);
+    ResponseEntity<Void> inserirPergunta(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody PerguntaCadastroForm body);
 
 
-    @Operation(summary = "Retorna a lista de usuários.", description = "Retorna a lista de usuários.", tags={ "Usuario" })
+    @Operation(summary = "Retorna a lista de perguntas do forum.", description = "Retorna a lista de perguntas.", tags={ "Perguntas" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "sucesso listagem", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDto.class)))) })
-    @RequestMapping(value = "/users",
+        @ApiResponse(responseCode = "200", description = "sucesso listagem", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PerguntaDto.class)))) })
+    @RequestMapping(value = "/questions",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<UserDto>> listarUsuarios(@Size(max=50) @Parameter(in = ParameterIn.QUERY, description = "Filtro de pesquisa" ,schema=@Schema()) @Valid @RequestParam(value = "filter", required = false) String filter);
+    ResponseEntity<List<PerguntaDto>> listarPerguntas(@Size(max=50) @Parameter(in = ParameterIn.QUERY, description = "Filtro de pesquisa" ,schema=@Schema()) @Valid @RequestParam(value = "filter", required = false) String filter);
 
 }
 

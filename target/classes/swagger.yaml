@@ -20,7 +20,6 @@ paths:
         - name: filter
           in: query
           description: Filtro de pesquisa
-          required: true
           schema:
             type: string
             maxLength: 50
@@ -204,6 +203,69 @@ paths:
         '204':    # status code
           description: sucesso alteracao
 
+  /questions:
+    get:
+      tags:
+        - Perguntas
+      summary: Retorna a lista de perguntas do forum.
+      description: Retorna a lista de perguntas.
+      operationId: listarPerguntas
+      parameters:
+        - name: filter
+          in: query
+          description: Filtro de pesquisa
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerguntaDto'
+
+    post:
+      tags:
+        - Perguntas
+      summary: Cadastra nova pergunta
+      description: Cadastra nova pergunta
+      operationId: inserirPergunta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PerguntaCadastroForm'
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+  /questions/{id}:
+    get:
+      tags:
+        - Perguntas
+      summary: Retorna a pergunta do forum.
+      description: Retorna a pergunta.
+      operationId: buscarPergunta
+      parameters:
+        - name: id
+          in: path
+          description: ID da pergunta
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerguntaDetalheDto'
 
 
 components:
@@ -226,6 +288,147 @@ components:
       required:
         - id
         - nome
+
+    PerguntaDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        titulo:
+          type: string
+          format: name
+        assuntos:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssuntoDto'
+        descricao:
+          type: string
+        usuario:
+          $ref: '#/components/schemas/UserDto'
+        votos:
+          $ref: '#/components/schemas/VotosDto'
+        questaoResolvida:
+          type: boolean
+          default: false
+        nroRespostas:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - titulo
+        - descricao
+
+    PerguntaDetalheDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        titulo:
+          type: string
+          format: name
+        assuntos:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssuntoDto'
+        descricao:
+          type: string
+        usuario:
+          $ref: '#/components/schemas/UserDto'
+        votos:
+          $ref: '#/components/schemas/VotosDto'
+        questaoResolvida:
+          type: boolean
+          default: false
+        nroRespostas:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0
+        respostas:
+          type: array
+          items:
+            $ref: '#/components/schemas/RespostaDto'
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - titulo
+        - descricao
+
+    PerguntaCadastroForm:
+      type: object
+      properties:
+        titulo:
+          type: string
+          format: name
+        idAssunto:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+        idUsuario:
+          type: integer
+          format: int64
+      required:
+        - id
+        - titulo
+        - descricao
+
+    RespostaDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+          format: name
+        usuario:
+          $ref: '#/components/schemas/UserDto'
+        votos:
+          $ref: '#/components/schemas/VotosDto'
+        solucao:
+          type: boolean
+          default: false
+        dataCadastro:
+          type: string
+          format: date-time
+
+    VotosDto:
+      type: object
+      properties:
+        positivos:
+          type: integer
+          minimum: 0
+          format: int32
+        negativos:
+          type: integer
+          minimum: 0
+          format: int32
+
+    AssuntoDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+          format: name
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - descricao
 
     UserDetalhesDto:
       type: object
