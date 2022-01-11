@@ -23,10 +23,8 @@ public class UsuarioController implements UsersApi, UserApi{
 
     @Override
     public ResponseEntity<List<UserDto>> listarUsuarios(String filter) {
-
         return ResponseEntity.ok(new ArrayList<>());
     }
-
 
     @Override
     public ResponseEntity<Void> alterarEmailUsuario(Long id, String emailNovo) {
