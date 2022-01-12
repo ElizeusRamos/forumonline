@@ -1,0 +1,565 @@
+openapi: 3.0.0
+info:
+  title: Fórum Online
+  description: Fórum de assuntos para desenvolvedores de software.
+  version: 1.0.0
+servers:
+  - url: http://api.pegasus.forumonline.com.br/v1
+    description: Fórum online T.I., e.g. Main (production) server
+  - url: http://staging-api.pegasus.forumonline.com.br
+    description: Fórum online T.I., e.g. Internal staging server for testing
+paths:
+  /users:
+    get:
+      tags:
+        - Usuario
+      summary: Retorna a lista de usuários.
+      description: Retorna a lista de usuários.
+      operationId: listarUsuarios
+      parameters:
+        - name: filter
+          in: query
+          description: Filtro de pesquisa
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+
+    post:
+      tags:
+        - Usuario
+      summary: Retorna a lista de usuários.
+      description: Retorna a lista de usuários.
+      operationId: inserirUsuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCadastroForm'
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+
+  /users/{id}:
+    get:
+      tags:
+        - Usuario
+      summary: Consulta de usuários por ID.
+      description: Retorna um usuários.
+      operationId: buscarUsuario
+      parameters:
+        - name: id
+          in: path
+          description: ID usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':    # status code
+          description: sucesso consulta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetalhesDto'
+
+  /user/alterar-email/{id}:
+    put:
+      tags:
+        - Usuario
+      summary: Alteração de email de usuários por ID.
+      description: Altera email de usuário.
+      operationId: alterarEmailUsuario
+      parameters:
+        - name: id
+          in: path
+          description: ID usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: emailNovo
+          in: query
+          description: Novo Email
+          schema:
+            type: string
+            format: email
+      responses:
+        '204':    # status code
+          description: sucesso alteracao
+
+  /user/alterar-nome/{id}:
+    put:
+      tags:
+        - Usuario
+      summary: Alteração de nome de usuários por ID.
+      description: Altera nome de usuário.
+      operationId: alterarNomeUsuario
+      parameters:
+        - name: id
+          in: path
+          description: ID usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: nomeNovo
+          in: query
+          description: Novo Nome
+          schema:
+            type: string
+            format: email
+      responses:
+        '204':    # status code
+          description: sucesso alteracao
+
+  /user/alterar-senha/{id}:
+    put:
+      tags:
+        - Usuario
+      summary: Alteração de senha de usuários por ID.
+      description: Altera senha de usuário.
+      operationId: alterarSenhaUsuario
+      parameters:
+        - name: id
+          in: path
+          description: ID usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: senhaAtual
+          in: query
+          description: Atual Senha
+          schema:
+            type: string
+            format: password
+        - name: senhaNova
+          in: query
+          description: Nova Senha
+          schema:
+            type: string
+            format: password
+      responses:
+        '204':    # status code
+          description: sucesso alteracao
+
+  /user/alterar-profissao/{id}:
+    put:
+      tags:
+        - Usuario
+      summary: Alteração de profissão de usuários por ID.
+      description: Altera profissão de usuário.
+      operationId: alterarProfissaoUsuario
+      parameters:
+        - name: id
+          in: path
+          description: ID usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: profissaoNova
+          in: query
+          description: Nova Profissao
+          schema:
+            type: string
+            format: name
+      responses:
+        '204':    # status code
+          description: sucesso alteracao
+
+  /user/alterar-formacao/{id}:
+    put:
+      tags:
+        - Usuario
+      summary: Alteração de formação acadêmica de usuários por ID.
+      description: Altera formação acadêmica de usuário.
+      operationId: alterarFormacaoUsuario
+      parameters:
+        - name: id
+          in: path
+          description: ID usuário
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: formacaoNova
+          in: query
+          description: Nova Formação Acadêmica
+          schema:
+            type: string
+            format: name
+      responses:
+        '204':    # status code
+          description: sucesso alteracao
+
+  /questions:
+    get:
+      tags:
+        - Perguntas
+      summary: Retorna a lista de perguntas do forum.
+      description: Retorna a lista de perguntas.
+      operationId: listarPerguntas
+      parameters:
+        - name: filter
+          in: query
+          description: Filtro de pesquisa
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerguntaDto'
+
+    post:
+      tags:
+        - Perguntas
+      summary: Cadastra nova pergunta
+      description: Cadastra nova pergunta
+      operationId: inserirPergunta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PerguntaCadastroForm'
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+  /questions/{id}:
+    get:
+      tags:
+        - Perguntas
+      summary: Retorna a pergunta do forum.
+      description: Retorna a pergunta.
+      operationId: buscarPergunta
+      parameters:
+        - name: id
+          in: path
+          description: ID da pergunta
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PerguntaDetalheDto'
+
+    put:
+      tags:
+        - Perguntas
+      summary: Altera pergunta
+      description: Altera pergunta
+      operationId: alterarPergunta
+      parameters:
+        - name: id
+          in: path
+          description: ID da pergunta
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                pergunta:
+                  type: string
+                  maxLength: 255
+                  example: "O que é o paradigma de Orientação à Objetos?"
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+  /matters:
+    get:
+      tags:
+        - Assuntos
+      summary: Retorna a lista de assuntos do forum.
+      description: Retorna a lista de assuntos.
+      operationId: listarAssuntos
+      parameters:
+        - name: filter
+          in: query
+          description: Filtro de pesquisa
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssuntoDto'
+    post:
+      tags:
+        - Assuntos
+      summary: Cadastra novo assunto
+      description: Cadastra novo assunto
+      operationId: inserirAssunto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssuntoCadastroForm'
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+  /matters/{id}:
+    delete:
+      tags:
+        - Assuntos
+      summary: Deleta assunto
+      description: Deleta assunto
+      operationId: removerAssunto
+      parameters:
+        - name: id
+          in: path
+          description: ID do assunto
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '204':    # status code
+          description: sucesso cadastro
+
+components:
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+          format: name
+        email:
+          type: string
+          format: email
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - nome
+
+    PerguntaDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        titulo:
+          type: string
+          format: name
+        assuntos:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssuntoDto'
+        descricao:
+          type: string
+        usuario:
+          $ref: '#/components/schemas/UserDto'
+        votos:
+          $ref: '#/components/schemas/VotosDto'
+        questaoResolvida:
+          type: boolean
+          default: false
+        nroRespostas:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - titulo
+        - descricao
+
+    PerguntaDetalheDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        titulo:
+          type: string
+          format: name
+        assuntos:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssuntoDto'
+        descricao:
+          type: string
+        usuario:
+          $ref: '#/components/schemas/UserDto'
+        votos:
+          $ref: '#/components/schemas/VotosDto'
+        questaoResolvida:
+          type: boolean
+          default: false
+        nroRespostas:
+          type: integer
+          format: int32
+          default: 0
+          minimum: 0
+        respostas:
+          type: array
+          items:
+            $ref: '#/components/schemas/RespostaDto'
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - titulo
+        - descricao
+
+    PerguntaCadastroForm:
+      type: object
+      properties:
+        titulo:
+          type: string
+          format: name
+        idAssunto:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+        idUsuario:
+          type: integer
+          format: int64
+      required:
+        - id
+        - titulo
+        - descricao
+
+    RespostaDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+          format: name
+        usuario:
+          $ref: '#/components/schemas/UserDto'
+        votos:
+          $ref: '#/components/schemas/VotosDto'
+        solucao:
+          type: boolean
+          default: false
+        dataCadastro:
+          type: string
+          format: date-time
+
+    VotosDto:
+      type: object
+      properties:
+        positivos:
+          type: integer
+          minimum: 0
+          format: int32
+        negativos:
+          type: integer
+          minimum: 0
+          format: int32
+
+    AssuntoDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+          format: name
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - descricao
+
+    AssuntoCadastroForm:
+      type: object
+      properties:
+        idAutor:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+          format: name
+      required:
+        - idAutor
+        - descricao
+
+    UserDetalhesDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nome:
+          type: string
+          format: name
+        login:
+          type: string
+        email:
+          type: string
+          format: email
+        profissao:
+          type: string
+        formacao:
+          type: string
+        dataCadastro:
+          type: string
+          format: date-time
+      required:
+        - id
+        - login
+        - nome
+
+
+    UserCadastroForm:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        senha:
+          type: string
+          minLength: 8
+          maxLength: 50
