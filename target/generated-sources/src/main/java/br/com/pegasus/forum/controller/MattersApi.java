@@ -5,9 +5,8 @@
  */
 package br.com.pegasus.forum.controller;
 
-import br.com.pegasus.forum.model.UserCadastroForm;
-import br.com.pegasus.forum.model.UserDetalhesDto;
-import br.com.pegasus.forum.model.UserDto;
+import br.com.pegasus.forum.model.AssuntoCadastroForm;
+import br.com.pegasus.forum.model.AssuntoDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -36,33 +35,32 @@ import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-11T22:57:05.268663400-03:00[America/Sao_Paulo]")
 @Validated
-public interface UsersApi {
+public interface MattersApi {
 
-    @Operation(summary = "Consulta de usuários por ID.", description = "Retorna um usuários.", tags={ "Usuario" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "sucesso consulta", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetalhesDto.class))) })
-    @RequestMapping(value = "/users/{id}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    ResponseEntity<UserDetalhesDto> buscarUsuario(@Parameter(in = ParameterIn.PATH, description = "ID usuário", required=true, schema=@Schema()) @PathVariable("id") Long id);
-
-
-    @Operation(summary = "Retorna a lista de usuários.", description = "Retorna a lista de usuários.", tags={ "Usuario" })
+    @Operation(summary = "Cadastra novo assunto", description = "Cadastra novo assunto", tags={ "Assuntos" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "sucesso cadastro") })
-    @RequestMapping(value = "/users",
+    @RequestMapping(value = "/matters",
         consumes = { "application/json" }, 
         method = RequestMethod.POST)
-    ResponseEntity<Void> inserirUsuario(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody UserCadastroForm body);
+    ResponseEntity<Void> inserirAssunto(@Parameter(in = ParameterIn.DEFAULT, description = "", schema=@Schema()) @Valid @RequestBody AssuntoCadastroForm body);
 
 
-    @Operation(summary = "Retorna a lista de usuários.", description = "Retorna a lista de usuários.", tags={ "Usuario" })
+    @Operation(summary = "Retorna a lista de assuntos do forum.", description = "Retorna a lista de assuntos.", tags={ "Assuntos" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "sucesso listagem", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDto.class)))) })
-    @RequestMapping(value = "/users",
+        @ApiResponse(responseCode = "200", description = "sucesso listagem", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = AssuntoDto.class)))) })
+    @RequestMapping(value = "/matters",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<UserDto>> listarUsuarios(@Size(max=50) @Parameter(in = ParameterIn.QUERY, description = "Filtro de pesquisa" ,schema=@Schema()) @Valid @RequestParam(value = "filter", required = false) String filter);
+    ResponseEntity<List<AssuntoDto>> listarAssuntos(@Size(max=50) @Parameter(in = ParameterIn.QUERY, description = "Filtro de pesquisa" ,schema=@Schema()) @Valid @RequestParam(value = "filter", required = false) String filter);
+
+
+    @Operation(summary = "Deleta assunto", description = "Deleta assunto", tags={ "Assuntos" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "204", description = "sucesso cadastro") })
+    @RequestMapping(value = "/matters/{id}",
+        method = RequestMethod.DELETE)
+    ResponseEntity<Void> removerAssunto(@Size(max=50) @Parameter(in = ParameterIn.PATH, description = "ID do assunto", required=true, schema=@Schema()) @PathVariable("id") String id);
 
 }
 
