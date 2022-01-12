@@ -4,49 +4,45 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.threeten.bp.OffsetDateTime;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * AssuntoDto
+ * AssuntoCadastroForm
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-11T22:57:05.268663400-03:00[America/Sao_Paulo]")
 
 
-public class AssuntoDto   {
-  @JsonProperty("id")
-  private Long id = null;
+public class AssuntoCadastroForm   {
+  @JsonProperty("idAutor")
+  private Long idAutor = null;
 
   @JsonProperty("descricao")
   private String descricao = null;
 
-  @JsonProperty("dataCadastro")
-  private OffsetDateTime dataCadastro = null;
-
-  public AssuntoDto id(Long id) {
-    this.id = id;
+  public AssuntoCadastroForm idAutor(Long idAutor) {
+    this.idAutor = idAutor;
     return this;
   }
 
   /**
-   * Get id
-   * @return id
+   * Get idAutor
+   * @return idAutor
    **/
   @Schema(required = true, description = "")
       @NotNull
 
-    public Long getId() {
-    return id;
+    public Long getIdAutor() {
+    return idAutor;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setIdAutor(Long idAutor) {
+    this.idAutor = idAutor;
   }
 
-  public AssuntoDto descricao(String descricao) {
+  public AssuntoCadastroForm descricao(String descricao) {
     this.descricao = descricao;
     return this;
   }
@@ -66,26 +62,6 @@ public class AssuntoDto   {
     this.descricao = descricao;
   }
 
-  public AssuntoDto dataCadastro(OffsetDateTime dataCadastro) {
-    this.dataCadastro = dataCadastro;
-    return this;
-  }
-
-  /**
-   * Get dataCadastro
-   * @return dataCadastro
-   **/
-  @Schema(description = "")
-  
-    @Valid
-    public OffsetDateTime getDataCadastro() {
-    return dataCadastro;
-  }
-
-  public void setDataCadastro(OffsetDateTime dataCadastro) {
-    this.dataCadastro = dataCadastro;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -95,25 +71,23 @@ public class AssuntoDto   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AssuntoDto assuntoDto = (AssuntoDto) o;
-    return Objects.equals(this.id, assuntoDto.id) &&
-        Objects.equals(this.descricao, assuntoDto.descricao) &&
-        Objects.equals(this.dataCadastro, assuntoDto.dataCadastro);
+    AssuntoCadastroForm assuntoCadastroForm = (AssuntoCadastroForm) o;
+    return Objects.equals(this.idAutor, assuntoCadastroForm.idAutor) &&
+        Objects.equals(this.descricao, assuntoCadastroForm.descricao);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, descricao, dataCadastro);
+    return Objects.hash(idAutor, descricao);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AssuntoDto {\n");
+    sb.append("class AssuntoCadastroForm {\n");
     
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    idAutor: ").append(toIndentedString(idAutor)).append("\n");
     sb.append("    descricao: ").append(toIndentedString(descricao)).append("\n");
-    sb.append("    dataCadastro: ").append(toIndentedString(dataCadastro)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -9,55 +9,33 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * UserCadastroForm
+ * QuestionsIdBody
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2022-01-11T22:57:05.268663400-03:00[America/Sao_Paulo]")
 
 
-public class UserCadastroForm   {
-  @JsonProperty("email")
-  private String email = null;
+public class QuestionsIdBody   {
+  @JsonProperty("pergunta")
+  private String pergunta = null;
 
-  @JsonProperty("senha")
-  private String senha = null;
-
-  public UserCadastroForm email(String email) {
-    this.email = email;
+  public QuestionsIdBody pergunta(String pergunta) {
+    this.pergunta = pergunta;
     return this;
   }
 
   /**
-   * Get email
-   * @return email
+   * Get pergunta
+   * @return pergunta
    **/
-  @Schema(description = "")
+  @Schema(example = "O que é o paradigma de Orientação à Objetos?", description = "")
   
-    public String getEmail() {
-    return email;
+  @Size(max=255)   public String getPergunta() {
+    return pergunta;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public UserCadastroForm senha(String senha) {
-    this.senha = senha;
-    return this;
-  }
-
-  /**
-   * Get senha
-   * @return senha
-   **/
-  @Schema(description = "")
-  
-  @Size(min=8,max=50)   public String getSenha() {
-    return senha;
-  }
-
-  public void setSenha(String senha) {
-    this.senha = senha;
+  public void setPergunta(String pergunta) {
+    this.pergunta = pergunta;
   }
 
 
@@ -69,23 +47,21 @@ public class UserCadastroForm   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserCadastroForm userCadastroForm = (UserCadastroForm) o;
-    return Objects.equals(this.email, userCadastroForm.email) &&
-        Objects.equals(this.senha, userCadastroForm.senha);
+    QuestionsIdBody questionsIdBody = (QuestionsIdBody) o;
+    return Objects.equals(this.pergunta, questionsIdBody.pergunta);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, senha);
+    return Objects.hash(pergunta);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserCadastroForm {\n");
+    sb.append("class QuestionsIdBody {\n");
     
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    senha: ").append(toIndentedString(senha)).append("\n");
+    sb.append("    pergunta: ").append(toIndentedString(pergunta)).append("\n");
     sb.append("}");
     return sb.toString();
   }

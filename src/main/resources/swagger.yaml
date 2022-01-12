@@ -267,6 +267,89 @@ paths:
                 items:
                   $ref: '#/components/schemas/PerguntaDetalheDto'
 
+    put:
+      tags:
+        - Perguntas
+      summary: Altera pergunta
+      description: Altera pergunta
+      operationId: alterarPergunta
+      parameters:
+        - name: id
+          in: path
+          description: ID da pergunta
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                pergunta:
+                  type: string
+                  maxLength: 255
+                  example: "O que é o paradigma de Orientação à Objetos?"
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+  /matters:
+    get:
+      tags:
+        - Assuntos
+      summary: Retorna a lista de assuntos do forum.
+      description: Retorna a lista de assuntos.
+      operationId: listarAssuntos
+      parameters:
+        - name: filter
+          in: query
+          description: Filtro de pesquisa
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '200':    # status code
+          description: sucesso listagem
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssuntoDto'
+    post:
+      tags:
+        - Assuntos
+      summary: Cadastra novo assunto
+      description: Cadastra novo assunto
+      operationId: inserirAssunto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssuntoCadastroForm'
+      responses:
+        '201':    # status code
+          description: sucesso cadastro
+
+  /matters/{id}:
+    delete:
+      tags:
+        - Assuntos
+      summary: Deleta assunto
+      description: Deleta assunto
+      operationId: removerAssunto
+      parameters:
+        - name: id
+          in: path
+          description: ID do assunto
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+      responses:
+        '204':    # status code
+          description: sucesso cadastro
 
 components:
   schemas:
@@ -428,6 +511,19 @@ components:
           format: date-time
       required:
         - id
+        - descricao
+
+    AssuntoCadastroForm:
+      type: object
+      properties:
+        idAutor:
+          type: integer
+          format: int64
+        descricao:
+          type: string
+          format: name
+      required:
+        - idAutor
         - descricao
 
     UserDetalhesDto:
